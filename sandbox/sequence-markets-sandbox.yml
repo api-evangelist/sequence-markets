@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/concepts/sandbox/
+docs: https://docs.sequencemkts.com/concepts/sandbox/
+overview: >-
+  Paper-trade against the live order book without risking real money. Sandbox
+  uses the same SOR, the same venue edges, and the same fill router as
+  production. Live and sandbox run inside the same edge processes; per-order
+  dispatch is decided by the is_sandbox flag.
+test_vs_live:
+  key_prefixes:
+    live: seq_live_
+    test: seq_test_
+  enable:
+  - method: sandbox key (recommended)
+    detail: A seq_test_ key forces every order through sandbox.
+  - method: per-order flag
+    detail: Set sandbox:true on individual order bodies when using a live key.
+create_sandbox_key:
+  request: |
+    curl -X POST https://api.sequencemkts.com/v1/api_keys \
+      -H "Authorization: Bearer $LIVE_KEY" \
+      -d '{"label":"my-paper-trading","sandbox":true}'
+behavior:
+  market_data: real
+  order_routing: real
+  fill_prices: adversarial sim against real book
+  fees: modeled (taker/maker bps)
+  positions: stored with is_sandbox=true flag
+  exchange_api_keys: not required
+reset:
+  request: |
+    curl -X POST https://api.sequencemkts.com/v1/sandbox/reset \
+      -H "Authorization: Bearer $SEQ_TEST_KEY"
+  effect: >-
+    Wipes all sandbox positions (positions_v2 rows with is_sandbox=true), clears
+    the SOR in-memory paper balance cache, and re-seeds default balances
+    ($1B per quote asset across all venues including Kalshi, Polymarket, DEX).
+  customize_balances: PUT /v1/sandbox/settings (call first to customize defaults)
+seed_positions: POST /v1/sandbox/positions
+cli:
+  flag: --sandbox
+  note: Or login with seq_test_ credentials; fills settle against live NBBO with realistic slippage.

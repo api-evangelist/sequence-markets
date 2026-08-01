@@ -1,0 +1,60 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/api/overview/
+docs: https://docs.sequencemkts.com/api/overview/
+format: custom-json
+rfc9457: false
+envelope:
+  field: error
+  shape: |
+    {"error": {"code": "...", "message": "...", "request_id": "uuid",
+     "details": [{"field": "...", "message": "..."}]}}
+problems:
+- code: VALIDATION_ERROR
+  http_status: 422
+  title: Request failed validation
+- code: BAD_REQUEST
+  http_status: 400
+  title: Malformed request
+- code: INVALID_PARAMS
+  http_status: 400
+  title: Invalid parameters
+- code: UNAUTHORIZED
+  http_status: 401
+  title: Missing or invalid API key
+- code: FORBIDDEN
+  http_status: 403
+  title: Authenticated key lacks permission for the action
+- code: NOT_FOUND
+  http_status: 404
+  title: Resource not found
+- code: CONFLICT
+  http_status: 409
+  title: Idempotency conflict (same graph_id, different parameters)
+- code: RATE_LIMITED
+  http_status: 429
+  title: Rate limit exceeded
+  remediation: Exponential backoff on 429, capped at 8s.
+- code: INTERNAL_ERROR
+  http_status: 500
+  title: Internal server error
+- code: SERVICE_UNAVAILABLE
+  http_status: 503
+  title: Service temporarily unavailable
+  remediation: Exponential backoff on 503 and disconnects.
+order_reject_reasons:
+  note: >-
+    Order-level rejection reasons surfaced on execution (analogous to decline
+    codes for a payments API); observed in the order lifecycle / risk docs.
+  reasons:
+  - INSUFFICIENT_BALANCE
+  - EXCHANGE_REJECT
+  - EXCHANGE_BUSY
+  - BAD_VENUE
+  - STALE_VENUE
+  - PRICE_DEVIATION
+  - POSITION_LIMIT
+  - DAILY_LOSS_LIMIT
+  - KILL_SWITCH
+  - NO_TRADING_WALLET
+  - TRADING_WALLET_NOT_READY

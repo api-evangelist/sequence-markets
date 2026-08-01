@@ -1,8 +1,30 @@
 aid: sequence-markets
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/sequence-markets.png
 name: Sequence Markets
-description: Sequence Markets is a company surfaced as a portfolio company of y-combinator and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Sequence Markets is a Y Combinator (Winter 2026) trading operating system for
+  institutional crypto that provides unified execution infrastructure across 12
+  fragmented digital-asset venues — centralized exchanges (Coinbase, Binance,
+  Kraken, OKX, Bybit, Bitget, Crypto.com, Hyperliquid), DeFi, and prediction
+  markets (Kalshi, Polymarket). It packages one market view into a single trade
+  via a smart order router (SOR), execution graphs, and WASM-compiled algo
+  strategies deployed to multi-region low-latency edges. Developers access it
+  through a Bearer-auth REST API and multiplexed WebSocket streams, a Python SDK,
+  a Rust SDK, an Algo SDK, a `sequence` CLI, and an MCP interface for human,
+  algorithmic, and agent workflows, with a full paper-trading sandbox, smart
+  order routing, and transaction-cost analytics (TCA).
 url: https://raw.githubusercontent.com/api-evangelist/sequence-markets/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,12 +34,103 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Trading
+- Cryptocurrency
+- Digital Assets
+- Execution
+- Smart Order Routing
+- Prediction Markets
+- Algorithmic Trading
+- DeFi
+- Market Data
+- FinTech
+- Developer Tools
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: DomainSecurity
+  url: security/sequence-markets-domain-security.yml
+- type: Website
+  url: https://sequencemkts.com/
+- type: DeveloperPortal
+  url: https://docs.sequencemkts.com/
+- type: Documentation
+  url: https://docs.sequencemkts.com/
+- type: APIReference
+  url: https://docs.sequencemkts.com/api/overview/
+- type: GettingStarted
+  url: https://docs.sequencemkts.com/quick-start/
+- type: GitHubOrganization
+  url: https://github.com/Bai-Funds
+- type: TermsOfService
+  url: https://sequencemkts.com/terms/
+- type: PrivacyPolicy
+  url: https://sequencemkts.com/privacy/
+- type: SignUp
+  url: https://sequencemkts.com/signup
+- type: Authentication
+  url: authentication/sequence-markets-authentication.yml
+- type: Conventions
+  url: conventions/sequence-markets-conventions.yml
+- type: Idempotency
+  url: conventions/sequence-markets-conventions.yml
+- type: Packages
+  url: packages/sequence-markets-packages.yml
+- type: SDKs
+  url: packages/sequence-markets-packages.yml
+- type: CLI
+  url: cli/sequence-markets-cli.yml
+- type: Sandbox
+  url: sandbox/sequence-markets-sandbox.yml
+- type: RateLimits
+  url: conventions/sequence-markets-conventions.yml
+- type: ErrorCatalog
+  url: errors/sequence-markets-problem-types.yml
+- type: MCPServer
+  url: mcp/sequence-markets-mcp.yml
+- type: LLMsTxt
+  url: llms/sequence-markets-llms.txt
+- type: WellKnown
+  url: well-known/sequence-markets-well-known.yml
+- type: Lifecycle
+  url: lifecycle/sequence-markets-lifecycle.yml
+- type: Conformance
+  url: conformance/sequence-markets-conformance.yml
+- type: DataModel
+  url: data-model/sequence-markets-data-model.yml
+- type: AsyncAPI
+  url: asyncapi/sequence-markets-streaming-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/sequence-markets-streaming-asyncapi.yml
+- type: AgentSkill
+  url: skills/_index.yml
+apis:
+- name: Sequence Markets Trading API
+  description: >-
+    Bearer-auth REST API and multiplexed WebSocket streaming surface for the
+    Sequence Markets trading OS — credentials & wallets, market data, orders &
+    execution graphs, positions & balances, prediction markets, real-time
+    streams, TCA & analytics, and algo management across 12 crypto venues.
+  humanURL: https://docs.sequencemkts.com/api/overview/
+  baseURL: https://api.sequencemkts.com
+  tags:
+  - Trading
+  - Execution
+  - Market Data
+  - Cryptocurrency
+  properties:
+  - type: Documentation
+    url: https://docs.sequencemkts.com/api/overview/
+  - type: Authentication
+    url: authentication/sequence-markets-authentication.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

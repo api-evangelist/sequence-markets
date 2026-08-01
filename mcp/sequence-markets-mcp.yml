@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: https://docs.sequencemkts.com/api/ (documented REST operations; no hosted MCP endpoint URL published)
+note: >-
+  Sequence Markets advertises an MCP interface ("terminal + API + SDK / MCP for
+  humans, algos, and agent workflows") on its product site, but no hosted/remote
+  MCP server URL or manifest was found in the public docs as of 2026-07-21.
+  The tool list below is a CANDIDATE derived from documented REST operations.
+server:
+  name: sequence-markets
+  transport: http
+  url: null
+  advertised: true
+tools:
+- name: get_quote
+  description: Real-time NBBO / per-venue BBO for a symbol
+  source_operation: "GET /v1/quotes/{symbol}"
+- name: list_symbols
+  description: List all tradable instruments
+  source_operation: "GET /v1/symbols"
+- name: preview_order
+  description: Preview an order and its SOR routing before submission
+  source_operation: "POST /v1/orders/preview"
+- name: place_order
+  description: Submit an order / execution graph (idempotent on graph_id)
+  source_operation: "POST /v1/orders"
+- name: cancel_order
+  description: Cancel an order or execution graph
+  source_operation: "DELETE /v1/execution_graphs/{graph_id}"
+- name: list_positions
+  description: Unified positions across all venues
+  source_operation: "GET /v1/positions"
+- name: get_portfolio
+  description: Unified portfolio summary and balances
+  source_operation: "GET /v1/portfolio/unified"
+- name: list_fills
+  description: Fill history
+  source_operation: "GET /v1/fills"
+- name: get_tca
+  description: Transaction cost analysis report
+  source_operation: "GET /v1/analytics/tca/report"
+- name: deploy_algo
+  description: Deploy a compiled WASM strategy to the edges
+  source_operation: "POST /v1/algos/deploy"
+- name: connect_venue
+  description: Store venue credentials
+  source_operation: "POST /v1/credentials/{venue}"
+- name: redeem_prediction_market
+  description: Claim prediction-market winnings for a resolved market
+  source_operation: "POST /v1/markets/{slug}/redeem"

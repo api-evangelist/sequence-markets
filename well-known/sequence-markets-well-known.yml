@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: probed each host's /.well-known/ discovery surface (2026-07-21)
+hosts:
+- host: https://sequencemkts.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://docs.sequencemkts.com
+  documents:
+  - path: /llms.txt
+    status: 200
+    file: ../llms/sequence-markets-llms.txt
+    note: Real llms.txt index published; saved verbatim.
+  - path: /llms-full.txt
+    status: 200
+    note: >-
+      Full machine-readable docs dump present but NOT committed
+      (*-llms-full.txt is gitignored — embeds vendor example tokens).
+- host: https://api.sequencemkts.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /openapi.yaml
+    status: 404
+notes: >-
+  No /.well-known/ discovery documents are published on any host. No OpenAPI
+  spec is published at the API host or docs host as of 2026-07-21; the REST
+  surface is documented narratively at docs.sequencemkts.com/api/.

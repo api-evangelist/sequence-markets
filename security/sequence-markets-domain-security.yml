@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: sequencemkts.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 26 01:38:40 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: docs.sequencemkts.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 13 07:03:21 2026 GMT
+  hsts: false
+- host: api.sequencemkts.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 25 13:45:58 2026 GMT
+  hsts: null
+domains:
+- domain: sequencemkts.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

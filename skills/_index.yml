@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: generated
+source: >-
+  Grounded in the documented REST operations at docs.sequencemkts.com/api
+  (no OpenAPI published; operations are verbatim documented method+path).
+skills:
+- file: sequence-markets-place-smart-routed-order.md
+  name: Place a smart-routed order
+  api: https://docs.sequencemkts.com/api/orders/
+  operations:
+  - "POST /v1/orders/preview"
+  - "POST /v1/orders"
+  - "GET /v1/orders/{node_order_id}"
+  - "GET /v1/execution_graphs/{graph_id}"
+- file: sequence-markets-connect-venue-and-check-portfolio.md
+  name: Connect a venue and check the unified portfolio
+  api: https://docs.sequencemkts.com/api/credentials/
+  operations:
+  - "POST /v1/credentials/{venue}"
+  - "GET /v1/venues"
+  - "GET /v1/positions"
+  - "GET /v1/portfolio/unified"
+- file: sequence-markets-deploy-wasm-algo.md
+  name: Deploy a WASM algo strategy
+  api: https://docs.sequencemkts.com/sdk/overview/
+  operations:
+  - "POST /v1/backtest"
+  - "POST /v1/algos/deploy"
+  - "GET /v1/algos/{symbol}/stats"
+  - "POST /v1/algos/{symbol}/stop"

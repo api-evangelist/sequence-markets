@@ -1,0 +1,82 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/api/overview/
+docs: https://docs.sequencemkts.com/api/overview/
+base_urls:
+  rest: https://api.sequencemkts.com
+  websocket: wss://api.sequencemkts.com/v1/stream
+authentication:
+  style: http-bearer
+  header: "Authorization: Bearer seq_live_... | seq_test_..."
+  ref: authentication/sequence-markets-authentication.yml
+idempotency:
+  supported: true
+  mechanism: graph_id
+  scope: order / execution-graph submissions
+  behavior: >-
+    Submitting an identical graph_id twice returns the original order without
+    duplication. Retrying the same graph_id with different parameters returns
+    409 Conflict.
+  header: null
+  note: >-
+    Idempotency is keyed on the client-supplied graph_id on order submission
+    rather than a dedicated Idempotency-Key header.
+request_tracing:
+  header: X-Request-Id
+  max_length: 128
+  behavior: >-
+    Optional client-supplied correlation id; the server generates a UUID v4 when
+    omitted and echoes X-Request-Id on the response. request_id is also included
+    in the error envelope.
+content_type:
+  required: application/json
+  applies_to: [POST, PATCH, PUT]
+versioning:
+  scheme: uri-path
+  current: v1
+  prefix: /v1/
+pagination:
+  documented: false
+  note: No standardized pagination scheme is documented in the API overview.
+rate_limiting:
+  model: token-bucket
+  bucket_capacity: "2 x qps"
+  refill: "qps tokens/second"
+  tiers:
+  - name: free
+    sustained_qps: 5
+    burst: 10
+  - name: paid
+    note: varies by profile; burst = 2 x qps
+  - name: pro
+    note: varies by profile; burst = 2 x qps
+  - name: enterprise
+    note: varies by profile; burst = 2 x qps
+  throttle_status: 429
+  throttle_code: RATE_LIMITED
+  headers_note: >-
+    Do not assume standardized rate-limit headers (X-RateLimit-*, Retry-After)
+    are always present.
+  retry_guidance: exponential backoff on 429/503 and disconnects, capped at 8s.
+  ref: conventions (this file also carries the RateLimits pointer)
+error_envelope:
+  format: custom-json
+  rfc9457: false
+  shape: |
+    {
+      "error": {
+        "code": "ERROR_CODE",
+        "message": "human-readable text",
+        "request_id": "uuid",
+        "details": [{"field": "name", "message": "reason"}]
+      }
+    }
+  ref: errors/sequence-markets-problem-types.yml
+numeric_conventions:
+  price_1e9: >-
+    Prices are integer-scaled by 1e9 (e.g. $50,000.50 -> 50_000_500_000_000).
+  qty_1e8: Quantities are integer-scaled by 1e8.
+  fees_bps: Fees expressed in basis points (bps / 10_000 = decimal multiplier).
+sandbox:
+  ref: sandbox/sequence-markets-sandbox.yml
+  toggle: seq_test_ key forces sandbox; or per-order sandbox:true flag.

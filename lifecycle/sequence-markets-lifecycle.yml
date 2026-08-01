@@ -1,0 +1,19 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/api/overview/
+versioning:
+  scheme: uri-path
+  current: v1
+  prefix: /v1/
+  docs: https://docs.sequencemkts.com/api/overview/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation policy or RFC 8594 Sunset/Deprecation header support documented as of 2026-07-21.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: >-
+  No public status page found (status.sequencemkts.com did not resolve on 2026-07-21).
+deprecated_operations: []

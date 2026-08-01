@@ -1,0 +1,57 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/api/credentials/
+docs: https://docs.sequencemkts.com/api/credentials/
+summary:
+  types:
+  - http-bearer
+  api_key_in:
+  - header
+  bearer_header: Authorization
+  key_prefixes:
+  - seq_live_
+  - seq_test_
+  oauth2_flows: []
+schemes:
+- name: BearerApiKey
+  type: http
+  scheme: bearer
+  location: "Authorization: Bearer <key>"
+  key_format: "seq_live_<key> (production) or seq_test_<key> (sandbox)"
+  description: >-
+    Sequence-issued API key presented as a Bearer token in the Authorization
+    header on every REST and WebSocket request. seq_live_ keys trade on real
+    venues; seq_test_ keys force every order through the sandbox.
+key_management:
+  create: POST /v1/api_keys  (body {label, sandbox})
+  list: GET /v1/api_keys
+  rotate: POST /v1/api_keys/{key_id}/rotate
+  revoke: DELETE /v1/api_keys/{key_id}
+  raw_key_note: >-
+    The raw key is returned only once at creation time and cannot be retrieved
+    later — store it securely.
+websocket_auth:
+  header: "Authorization: Bearer seq_live_..."
+  ticket_flow:
+    endpoint: GET /v1/ws/ticket
+    returns: "{ticket: wst_...}"
+    connect: "wss://api.sequencemkts.com/v1/stream?ticket=wst_..."
+    ttl_seconds: 30
+    single_use: true
+    note: For browser clients that cannot set WebSocket headers.
+venue_credentials:
+  note: >-
+    Downstream venue credentials are stored separately from the Sequence API
+    key. Guidance: only grant read and trade permissions for CEX API keys —
+    never enable withdrawals.
+  cex:
+    store: GET /v1/credentials  (POST /v1/credentials/{venue})
+    encryption: AES-256-GCM
+    per_venue:
+      kraken/binance/bitget/crypto.com: [api_key, api_secret]
+      coinbase: [api_key, api_secret (EC private key), passphrase (optional)]
+      kalshi: [api_key (UUID), api_secret (RSA private key)]
+      polymarket: [extra_json.signer_private_key]
+  dex:
+    store: GET /v1/wallets
+    model: MPC-secured Sequence Wallets for on-chain trading

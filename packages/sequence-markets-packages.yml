@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/sdks/python/
+packages:
+- language: python
+  registry: pypi
+  name: sequence-markets
+  version: 0.5.7
+  url: https://pypi.org/project/sequence-markets/
+  install: pip install sequence-markets
+  extras:
+  - name: stream
+    install: pip install "sequence-markets[stream]"
+    note: adds WebSocket streaming support
+  import: sequence_markets
+  repository: https://github.com/Bai-Funds/execution-engine
+  official: true
+  note: Official Python SDK for the Sequence Markets trading OS (REST + WebSocket).
+- language: rust
+  registry: git
+  name: sequence-sdk
+  url: https://github.com/Bai-Funds/execution-engine
+  install: "sequence-sdk = { git = \"ssh://git@github.com/Bai-Funds/execution-engine.git\", package = \"sequence-sdk\" }"
+  official: true
+  note: >-
+    Official Rust SDK. Distributed via workspace path or the private
+    execution-engine git repository; not published to crates.io as of 2026-07.
+- language: rust
+  registry: github
+  name: algo-sdk
+  url: https://github.com/Bai-Funds/algo-sdk
+  install: "clone https://github.com/Bai-Funds/algo-sdk"
+  official: true
+  note: >-
+    Public Algo SDK repository — the WASM strategy authoring surface used with
+    the `sequence` CLI (init/build/backtest/deploy).
+- language: shell
+  registry: releases
+  name: sequence
+  url: https://releases.sequencemkts.com/cli/install.sh
+  install: "curl -fsSL https://releases.sequencemkts.com/cli/install.sh | sh"
+  official: true
+  note: >-
+    First-party `sequence` CLI binary. Also downloadable from the Bai-Funds
+    GitHub releases page. Command surface catalogued in cli/.

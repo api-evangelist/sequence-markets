@@ -1,0 +1,134 @@
+asyncapi: 3.0.0
+info:
+  title: Sequence Markets Streaming API
+  version: '1.0'
+  description: >-
+    Multiplexed WebSocket streaming surface for the Sequence Markets trading OS,
+    generated faithfully from the documented channel catalog at
+    docs.sequencemkts.com/api/streaming. Not an official provider-published
+    AsyncAPI — captured by the API Evangelist enrichment pipeline from the
+    documented channels, subscribe protocol, and message envelope.
+  x-provenance:
+    generated: '2026-07-21'
+    method: generated
+    source: https://docs.sequencemkts.com/api/streaming/
+servers:
+  production:
+    host: api.sequencemkts.com
+    pathname: /v1/stream
+    protocol: wss
+    description: >-
+      Bearer-auth WebSocket. Browser clients use a single-use 30s ticket from
+      GET /v1/ws/ticket appended as ?ticket=wst_...
+    security:
+    - $ref: '#/components/securitySchemes/bearerAuth'
+    - $ref: '#/components/securitySchemes/ticket'
+channels:
+  prices:
+    address: 'prices:{symbol}'
+    description: NBBO updates for a symbol (prediction-market token ids as suffix).
+    parameters:
+      symbol:
+        description: Instrument symbol or prediction-market token id.
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  book:
+    address: 'book:{symbol}'
+    description: Per-venue L2 order book updates.
+    parameters:
+      symbol: {}
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  orders:
+    address: orders
+    description: Order lifecycle snapshots.
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  fills:
+    address: fills
+    description: Per-fill events.
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  tca:
+    address: tca
+    description: Post-completion TCA reports.
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  traces:
+    address: 'traces:{deployment_id}'
+    description: Strategy callback traces for a deployment.
+    parameters:
+      deployment_id: {}
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  funding:
+    address: 'funding:{venue}:{symbol}'
+    description: Perp funding rates (funding | funding:{venue} | funding:{venue}:{symbol}).
+    parameters:
+      venue: {}
+      symbol: {}
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  fairPrice:
+    address: 'fair_price:{underlying}'
+    description: Consolidated reference prices (fair_price | fair_price:{underlying}).
+    parameters:
+      underlying: {}
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  newMarkets:
+    address: /v1/ws/new_markets
+    description: Prediction-market lifecycle events (dedicated WS, no subscribe needed).
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+  marketResolved:
+    address: /v1/ws/market_resolved
+    description: Prediction-market resolution events (dedicated WS).
+    messages:
+      streamEvent:
+        $ref: '#/components/messages/streamEvent'
+operations:
+  subscribe:
+    action: send
+    channel:
+      $ref: '#/channels/prices'
+    description: >-
+      Subscribe to channels via {"subscribe": ["prices:BTC-USD", "book:BTC-USDT",
+      "orders", "fair_price:BTC"]}; server replies {"subscribed": [...], "rejected": [...]}.
+  receiveEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/prices'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: "Authorization: Bearer seq_live_..."
+    ticket:
+      type: httpApiKey
+      in: query
+      name: ticket
+      description: Single-use 30s ticket (wst_...) from GET /v1/ws/ticket for browser clients.
+  messages:
+    streamEvent:
+      name: streamEvent
+      summary: Multiplexed channel event.
+      payload:
+        type: object
+        properties:
+          channel:
+            type: string
+            description: The topic this event belongs to.
+          data:
+            type: object
+            description: Channel-specific payload.

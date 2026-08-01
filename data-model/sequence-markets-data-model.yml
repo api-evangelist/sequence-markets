@@ -1,0 +1,134 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/api/ (object reference across api/* pages)
+note: >-
+  Derived from the documented REST resource surface (no OpenAPI published).
+  Entities and id fields taken verbatim from the api/* and concepts/* docs.
+entities:
+- name: ApiKey
+  id_field: key_id
+  prefix: seq_live_ / seq_test_
+  endpoints:
+  - "POST /v1/api_keys"
+  - "GET /v1/api_keys"
+  - "POST /v1/api_keys/{key_id}/rotate"
+  - "DELETE /v1/api_keys/{key_id}"
+- name: Wallet
+  id_field: wallet
+  note: MPC-secured Sequence Wallets for on-chain (DEX) trading.
+  endpoints:
+  - "GET /v1/wallets"
+  - "GET /v1/wallets/default"
+  - "GET /v1/wallets/trading"
+  - "POST /v1/wallets/trading/create-turnkey"
+  - "POST /v1/wallets/withdraw"
+- name: Credential
+  id_field: venue
+  note: Per-venue CEX API keys, AES-256-GCM encrypted.
+  endpoints:
+  - "GET /v1/credentials"
+  - "POST /v1/credentials/{venue}"
+  - "DELETE /v1/credentials/{venue}"
+- name: Symbol
+  id_field: symbol
+  endpoints:
+  - "GET /v1/symbols"
+  - "GET /v1/markets"
+  - "GET /v1/pairs/{symbol}/venues"
+- name: Quote
+  id_field: symbol / token_id
+  endpoints:
+  - "GET /v1/quotes"
+  - "GET /v1/quotes/{symbol}"
+  - "POST /v1/quotes_batch"
+  - "GET /v1/fair_price"
+  - "GET /v1/price_history/{symbol}"
+- name: Order
+  id_field: node_order_id
+  relationships:
+  - belongs_to: ExecutionGraph
+    via: graph_id
+  endpoints:
+  - "POST /v1/orders"
+  - "POST /v1/orders/preview"
+  - "GET /v1/orders"
+  - "GET /v1/orders/{node_order_id}"
+  - "PATCH /v1/orders/{node_order_id}"
+- name: ExecutionGraph
+  id_field: graph_id
+  note: graph_id doubles as the idempotency key for order submission.
+  relationships:
+  - has_many: Order
+    via: graph_id
+  endpoints:
+  - "GET /v1/execution_graphs/{graph_id}"
+  - "PATCH /v1/execution_graphs/{graph_id}/nodes/{node_id}"
+  - "POST /v1/execution_graphs/{graph_id}/resume"
+  - "DELETE /v1/execution_graphs/{graph_id}"
+- name: Position
+  id_field: symbol
+  endpoints:
+  - "GET /v1/positions"
+  - "GET /v1/positions/perp"
+  - "POST /v1/positions/sync"
+  - "GET /v1/balances"
+  - "GET /v1/portfolio/unified"
+  - "GET /v1/portfolio/summary"
+  - "GET /v1/portfolio/snapshots"
+- name: Fill
+  id_field: node_order_id
+  relationships:
+  - belongs_to: Order
+    via: node_order_id
+  endpoints:
+  - "GET /v1/fills"
+- name: PredictionMarket
+  id_field: slug / token_id
+  endpoints:
+  - "GET /v1/settlement/{slug}"
+  - "POST /v1/markets/{slug}/redeem"
+  - "GET /v1/polymarket/rewards"
+  - "GET /v1/ws/new_markets"
+  - "GET /v1/ws/market_resolved"
+- name: Deployment
+  id_field: deployment_id
+  relationships:
+  - has_many: Algo
+  endpoints:
+  - "GET /v1/deployments"
+  - "POST /v1/deployments"
+  - "GET /v1/deployments/{deployment_id}"
+  - "PATCH /v1/deployments/{deployment_id}"
+  - "DELETE /v1/deployments/{deployment_id}"
+  - "POST /v1/deployments/{deployment_id}/start"
+  - "POST /v1/deployments/{deployment_id}/stop"
+- name: Algo
+  id_field: symbol / name
+  endpoints:
+  - "GET /v1/algos"
+  - "POST /v1/algos/deploy"
+  - "GET /v1/algos/{symbol}/logs"
+  - "GET /v1/algos/{symbol}/stats"
+  - "POST /v1/algos/{symbol}/start"
+  - "POST /v1/algos/{symbol}/stop"
+  - "DELETE /v1/algos/{symbol}"
+- name: Backtest
+  id_field: job_id
+  endpoints:
+  - "POST /v1/backtest"
+  - "GET /v1/backtest/{job_id}"
+  - "GET /v1/backtest/{job_id}/results"
+- name: TCAReport
+  id_field: null
+  endpoints:
+  - "GET /v1/analytics/tca"
+  - "GET /v1/analytics/tca/report"
+  - "GET /v1/analytics/tca/timeseries"
+  - "GET /v1/analytics/tca/venues"
+  - "GET /v1/analytics/tca/quality"
+  - "GET /v1/analytics/execution"
+  - "GET /v1/analytics/portfolio"
+  - "GET /v1/analytics/venues"
+numeric_conventions:
+  price_1e9: prices integer-scaled by 1e9
+  qty_1e8: quantities integer-scaled by 1e8

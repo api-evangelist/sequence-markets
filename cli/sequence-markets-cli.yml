@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.sequencemkts.com/sdks/cli/
+docs: https://docs.sequencemkts.com/sdks/cli/
+binary: sequence
+install:
+- method: install-script
+  command: "curl -fsSL https://releases.sequencemkts.com/cli/install.sh | sh"
+- method: github-releases
+  detail: Download binaries directly from the Bai-Funds GitHub releases page.
+auth:
+  command: sequence login
+  detail: >-
+    Authenticate with a seq_live_ (production) or seq_test_ (sandbox) API key;
+    writes to ~/.sequence/config.toml.
+  sandbox: "--sandbox flag or login with seq_test_ credentials"
+command_groups:
+- level: Connect
+  commands:
+  - "sequence login — authenticate with API key"
+  - "sequence connect <venue> — store venue credentials"
+  - "sequence disconnect <venue> — remove stored credentials"
+  - "sequence venues — list connected venues"
+- level: See
+  commands:
+  - "sequence quote <symbol> — real-time NBBO and per-venue BBO"
+  - "sequence positions [flags] — unified holdings across all venues"
+  - "sequence symbols — all tradable instruments"
+  - "sequence fees <ticker> — maker/taker fees per venue"
+  - "sequence fills [--symbol] — fill history"
+- level: Trade
+  commands:
+  - "sequence buy <symbol> <qty> [flags]"
+  - "sequence sell <symbol> <qty> [flags]"
+  - "sequence orders [--symbol] — list orders"
+  - "sequence cancel <id> — cancel order or graph"
+  - "sequence amend <id> [--price] [--qty] — modify resting order"
+  - "sequence decrease <id> --by <qty> — reduce quantity"
+  - "sequence redeem <slug> --venue — claim prediction market winnings"
+- level: Automate
+  commands:
+  - "sequence init <name> — scaffold new algo project"
+  - "sequence build — compile to WASM"
+  - "sequence backtest [flags] — run historical simulation"
+  - "sequence deploy [--skip-build] — push to edges and start"
+  - "sequence logs [<name>] [-f] — stream strategy output"
+  - "sequence status [<name>] — deployment snapshot"
+  - "sequence start/stop/undeploy [<name>] — manage deployment"
+- level: Monitor
+  commands:
+  - "sequence trace <node_order_id> — nanosecond-precision lifecycle trace"
+  - "sequence intel <symbol> — market structure snapshot"
+  - "sequence tca [<name>] — transaction cost analysis"
