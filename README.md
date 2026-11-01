@@ -64,6 +64,120 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Sequence Markets is a company surfaced as a portfolio company of y-combinator and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Sequence Markets is a Y Combinator (Winter 2026) trading operating system for institutional crypto that provides unified execution infrastructure across 12 fragmented digital-asset venues — centralized exchanges (Coinbase, Binance, Kraken, OKX, Bybit, Bitget, Crypto.com, Hyperliquid), DeFi, and prediction markets (Kalshi, Polymarket). It packages one market view into a single trade via a smart order router (SOR), execution graphs, and WASM-compiled algo strategies deployed to multi-region low-latency edges. Developers access it through a Bearer-auth REST API and multiplexed WebSocket streams, a Python SDK, a Rust SDK, an Algo SDK, a `sequence` CLI, and an MCP interface for human, algorithmic, and agent workflows, with a full paper-trading sandbox, smart order routing, and transaction-cost analytics (TCA).
 
-Backed by: y-combinator
+**Areas:** Company · Trading · Cryptocurrency · Digital Assets · Execution · Smart Order Routing · Prediction Markets · Algorithmic Trading · DeFi · Market Data · Fintech · Developer Tools
+
+## Sequence Markets on APIs.io
+
+Everything profiled for Sequence Markets is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sequence-markets/](https://apis.io/providers/sequence-markets/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Sequence Markets Trading API](https://apis.io/apis/sequence-markets/sequence-markets-trading-api/) — Bearer-auth REST API and multiplexed WebSocket streaming surface for the Sequence Markets trading OS — credentials & wallets, market data, orders &…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Sequence Markets Streaming API](https://apis.io/asyncapis/sequence-markets/sequence-markets-streaming-asyncapi/)
+
+#### Event channels (10)
+
+Individual events and webhooks the provider emits.
+
+- [book:{symbol}](https://apis.io/channels/sequence-markets/book-symbol/)
+- [fair_price:{underlying}](https://apis.io/channels/sequence-markets/fair-price-underlying/)
+- [fills](https://apis.io/channels/sequence-markets/fills/)
+- [funding:{venue}:{symbol}](https://apis.io/channels/sequence-markets/funding-venue-symbol/)
+- [orders](https://apis.io/channels/sequence-markets/orders/)
+- [prices:{symbol}](https://apis.io/channels/sequence-markets/prices-symbol/)
+- [tca](https://apis.io/channels/sequence-markets/tca/)
+- [traces:{deployment_id}](https://apis.io/channels/sequence-markets/traces-deployment-id/)
+- [/v1/ws/market_resolved](https://apis.io/channels/sequence-markets/v1-ws-market-resolved/)
+- [/v1/ws/new_markets](https://apis.io/channels/sequence-markets/v1-ws-new-markets/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [sequence-markets](https://apis.io/servers/sequence-markets/sequence-markets/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Sequence Markets Authentication](https://apis.io/security/sequence-markets/sequence-markets-authentication/)
+- [Sequence Markets Domain Security](https://apis.io/security/sequence-markets/sequence-markets-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://sequencemkts.com/)
+- [Documentation](https://docs.sequencemkts.com/)
+- [Getting started](https://docs.sequencemkts.com/quick-start/)
+- [API reference](https://docs.sequencemkts.com/api/overview/)
+- [Sign up](https://sequencemkts.com/signup)
+- [Terms of service](https://sequencemkts.com/terms/)
+- [Privacy policy](https://sequencemkts.com/privacy/)
+- [GitHub](https://github.com/Bai-Funds)
+
+## API Evangelist rating
+
+**Kin Score 40.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 39.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 34.2 |
+
+**Agent readiness 26.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 23.1** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/sequence-markets/](https://apis.io/providers/sequence-markets/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Sequence Markets: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/sequence-markets/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
